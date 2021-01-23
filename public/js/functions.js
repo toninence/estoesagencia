@@ -13,8 +13,14 @@ window.onload = function () {
   popovers();
 };
 
+const cleanUp = () => {
+    document.getElementById("projectName").value = "";
+    document.getElementById("description").value = "";
+    document.getElementById("projectName").classList.remove("is-invalid");
+    idEditar = null;
+};
 const editProject = (data) => {
-  const openModal = document.getElementById("trigerExampleModal");
+  const openModal = document.getElementById("trigerEditExampleModal");
   document.getElementById("projectName").value = data.name;
   document.getElementById("description").value = data.description;
   document.getElementById("projectManager").value = data.pmId;
@@ -59,7 +65,7 @@ const addProject = () => {
   const formulario = document.getElementById("formulario");
   const formData = new FormData(formulario);
   if (idEditar) {
-    formData.append('projectId', idEditar)
+    formData.append("projectId", idEditar);
   }
   axios({
     method: "post",
@@ -79,6 +85,7 @@ const addProject = () => {
           data.msgs.name;
       } else {
         modal.hide();
+        cleanUp();
       }
     })
     .catch((error) => console.log(error));

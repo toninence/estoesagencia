@@ -17,7 +17,8 @@
             </div>
         </div>
         <div class="col-md-6 d-flex flex-row justify-content-end align-items-center">
-            <div><button id='trigerExampleModal' type="button" class="btn btn-lg btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">+ Add project</button></div>
+            <div><button onclick="cleanUp(true)" id='trigerExampleModal' type="button" class="btn btn-lg btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">+ Add project</button></div>
+            <button style="display: none;" id='trigerEditExampleModal' type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"></button>
         </div>
     </div>
 
