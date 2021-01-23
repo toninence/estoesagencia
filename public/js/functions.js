@@ -1,5 +1,5 @@
 var idEliminar;
-
+var idEditar;
 const popovers = () => {
   var popoverTriggerList = [].slice.call(
     document.querySelectorAll('[data-bs-toggle="popover"]')
@@ -21,36 +21,36 @@ const editProject = (data) => {
   document.getElementById("assignedTo").value = data.devId;
   document.getElementById("status").value = data.status;
   openModal.click();
-  console.table(data);
+  idEditar = data.id;
 };
 
 const modalDelete = (id) => {
   const openModal = document.getElementById("trigerModalEliminar");
   openModal.click();
-  idEliminar = id
+  idEliminar = id;
 };
 
 const deleteProject = () => {
-    const myModalEl = document.getElementById("modalEliminar");
-    const modal = bootstrap.Modal.getInstance(myModalEl);
-    axios({
-        method: "post",
-        headers: {
-          "X-Requested-With": "XMLHttpRequest",
-        },
-        url: `projects/deleteProject/${idEliminar}`,
-      })
-        .then((response) => {
-          const { data } = response;
-          console.log(data)
-          // console.log("respuesta: ", response.data);
-          if (data.type === "error") {
-            console.log(data);
-          } else {
-            modal.hide();
-          }
-        })
-        .catch((error) => console.log(error));
+  const myModalEl = document.getElementById("modalEliminar");
+  const modal = bootstrap.Modal.getInstance(myModalEl);
+  axios({
+    method: "post",
+    headers: {
+      "X-Requested-With": "XMLHttpRequest",
+    },
+    url: `projects/deleteProject/${idEliminar}`,
+  })
+    .then((response) => {
+      const { data } = response;
+      console.log(data);
+      // console.log("respuesta: ", response.data);
+      if (data.type === "error") {
+        console.log(data);
+      } else {
+        modal.hide();
+      }
+    })
+    .catch((error) => console.log(error));
 };
 
 const addProject = () => {
@@ -58,6 +58,9 @@ const addProject = () => {
   const modal = bootstrap.Modal.getInstance(myModalEl);
   const formulario = document.getElementById("formulario");
   const formData = new FormData(formulario);
+  if (idEditar) {
+    formData.append('projectId', idEditar)
+  }
   axios({
     method: "post",
     headers: {
@@ -67,10 +70,10 @@ const addProject = () => {
     data: formData,
   })
     .then((response) => {
+      idEditar = null;
       const { data } = response;
-      // console.log("respuesta: ", response.data);
+      console.log("respuesta: ", response.data);
       if (data.type === "error") {
-        console.log(data.msgs.name);
         document.getElementById("projectName").classList.add("is-invalid");
         document.getElementById("projectName-invalid").innerText =
           data.msgs.name;

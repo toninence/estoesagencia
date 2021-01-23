@@ -28,6 +28,10 @@ class Projects extends BaseController
                 'assignedTo'        => $request->getPost('assignedTo'),
                 'status'            => $request->getPost('status'),
             ];
+            if($request->getPost('projectId')){
+                $data['id'] = $request->getPost('projectId');
+            }
+            // return json_encode($data);
             if($this->projectsModel->save($data)===false):
                 $error = (array) $this->projectsModel->errors();
                 $msg=[

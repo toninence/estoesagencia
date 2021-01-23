@@ -24,7 +24,7 @@ class Home extends BaseController
 		');
 		$builder->join('projectManager', 'projects.projectManager = projectManager.id');
 		$builder->join('developer', 'projects.assignedTo = developer.id');
-		$query = $builder->get()->getResult();
+		$query = $builder->orderBy('projects.id', 'asc')->get()->getResult();
 		$data['projects'] = $query;
 		$data['pm'] = (new ProjectManagerModel())->findAll();
 		$data['dev'] = (new DeveloperModel())->findAll();

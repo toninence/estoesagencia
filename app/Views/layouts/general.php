@@ -33,6 +33,7 @@
 
 
 <!--  -->
+<!-- <script src="http://localhost/proyectos/estoesagencia/public/js/functions.js"></script> -->
 <script src="http://localhost:8080/js/functions.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
